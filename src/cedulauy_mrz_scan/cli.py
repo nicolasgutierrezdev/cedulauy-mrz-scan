@@ -12,7 +12,7 @@ from .ocr import scan_image
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
-        prog="cedulauy-mrz-scan", description="Read the MRZ of an ID card or passport."
+        prog="cedulauy-mrz-scan", description="Read the MRZ of a Uruguayan ID card."
     )
     source = parser.add_mutually_exclusive_group(required=True)
     source.add_argument("-i", "--image", help="path to a photo or scan of the document")

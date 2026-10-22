@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-label="cedulauy-mrz-scan - MRZ reader for Uruguayan ID cards, by webcam or photo">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="55%" stop-color="#111a2b"/>
+      <stop offset="100%" stop-color="#0b1b28"/>
+    </linearGradient>
+    <linearGradient id="bar" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#fcd34d"/>
+    </linearGradient>
+    <linearGradient id="frame" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#fcd34d"/>
+    </linearGradient>
+    <filter id="glow" x="-10%" y="-400%" width="120%" height="900%">
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
+    <clipPath id="card">
+      <rect x="860" y="68" width="264" height="166" rx="12"/>
+    </clipPath>
+    <path id="ray-straight" d="M-3 -17 L0 -36 L3 -17 Z"/>
+    <path id="ray-wavy" d="M0 -17 q4 4 0 7.5 q-4 3.5 0 7.5 q4 3.5 0 7.5" fill="none" stroke-width="2.2" stroke-linecap="round"/>
+  </defs>
+
+  <rect width="1200" height="300" rx="12" fill="url(#bg)"/>
+  <rect x="48" y="86" width="5" height="128" rx="2.5" fill="url(#bar)"/>
+
+  <text x="82" y="140" fill="#e6edf3" font-family="Consolas, 'DejaVu Sans Mono', Menlo, monospace" font-size="60" font-weight="700" letter-spacing="-0.5">cedulauy-mrz-scan</text>
+  <text x="84" y="186" fill="#9aa7b6" font-family="'Segoe UI', 'DejaVu Sans', Verdana, sans-serif" font-size="25">MRZ reader for Uruguayan ID cards, by webcam or photo</text>
+  <text x="84" y="224" fill="#fcd34d" font-family="'Segoe UI', 'DejaVu Sans', Verdana, sans-serif" font-size="17" letter-spacing="1.6" xml:space="preserve">CÉDULA DE IDENTIDAD  &#183;  TD1  &#183;  OFFLINE</text>
+
+  <!-- Card as a small Uruguayan flag: nine stripes and the Sol de Mayo -->
+  <rect x="860" y="68" width="264" height="166" rx="12" fill="#e6edf3" fill-opacity="0.07"/>
+  <g clip-path="url(#card)" fill="#3b82f6">
+    <rect x="952" y="86.4" width="172" height="18.4" fill-opacity="0.32"/>
+    <rect x="952" y="123.3" width="172" height="18.4" fill-opacity="0.32"/>
+    <rect x="860" y="160.1" width="264" height="18.4" fill-opacity="0.14"/>
+    <rect x="860" y="197" width="264" height="18.4" fill-opacity="0.14"/>
+  </g>
+  <g fill="#fcd34d" stroke="#fcd34d">
+    <use xlink:href="#ray-straight" href="#ray-straight" transform="translate(906 114) rotate(0)"/>
+    <use xlink:href="#ray-straight" href="#ray-straight" transform="translate(906 114) rotate(45)"/>
+    <use xlink:href="#ray-straight" href="#ray-straight" transform="translate(906 114) rotate(90)"/>
+    <use xlink:href="#ray-straight" href="#ray-straight" transform="translate(906 114) rotate(135)"/>
+    <use xlink:href="#ray-straight" href="#ray-straight" transform="translate(906 114) rotate(180)"/>
+    <use xlink:href="#ray-straight" href="#ray-straight" transform="translate(906 114) rotate(225)"/>
+    <use xlink:href="#ray-straight" href="#ray-straight" transform="translate(906 114) rotate(270)"/>
+    <use xlink:href="#ray-straight" href="#ray-straight" transform="translate(906 114) rotate(315)"/>
+  </g>
+  <g stroke="#fcd34d">
+    <use xlink:href="#ray-wavy" href="#ray-wavy" transform="translate(906 114) rotate(22.5)"/>
+    <use xlink:href="#ray-wavy" href="#ray-wavy" transform="translate(906 114) rotate(67.5)"/>
+    <use xlink:href="#ray-wavy" href="#ray-wavy" transform="translate(906 114) rotate(112.5)"/>
+    <use xlink:href="#ray-wavy" href="#ray-wavy" transform="translate(906 114) rotate(157.5)"/>
+    <use xlink:href="#ray-wavy" href="#ray-wavy" transform="translate(906 114) rotate(202.5)"/>
+    <use xlink:href="#ray-wavy" href="#ray-wavy" transform="translate(906 114) rotate(247.5)"/>
+    <use xlink:href="#ray-wavy" href="#ray-wavy" transform="translate(906 114) rotate(292.5)"/>
+    <use xlink:href="#ray-wavy" href="#ray-wavy" transform="translate(906 114) rotate(337.5)"/>
+  </g>
+  <circle cx="906" cy="114" r="14" fill="#fcd34d"/>
+  <circle cx="906" cy="114" r="10" fill="none" stroke="#b45309" stroke-opacity="0.55" stroke-width="1.2"/>
+  <rect x="860" y="68" width="264" height="166" rx="12" fill="none" stroke="#9aa7b6" stroke-opacity="0.35" stroke-width="1.5"/>
+
+  <!-- MRZ (placeholder data) with the scan line -->
+  <rect x="872" y="166" width="240" height="58" rx="6" fill="#0d1117" fill-opacity="0.55" stroke="#fcd34d" stroke-opacity="0.45"/>
+  <g font-family="Consolas, 'DejaVu Sans Mono', Menlo, monospace" font-size="12.5" fill="#e6edf3" fill-opacity="0.9">
+    <text x="879" y="185" textLength="226" lengthAdjust="spacingAndGlyphs">I&lt;URY1234567&lt;8&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</text>
+    <text x="879" y="201" textLength="226" lengthAdjust="spacingAndGlyphs">8001014M3001014URY&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;6</text>
+    <text x="879" y="217" textLength="226" lengthAdjust="spacingAndGlyphs">APELLIDO&lt;&lt;NOMBRE&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</text>
+  </g>
+  <line x1="866" y1="192" x2="1118" y2="192" stroke="#fcd34d" stroke-width="6" opacity="0.5" filter="url(#glow)"/>
+  <line x1="866" y1="192" x2="1118" y2="192" stroke="#fcd34d" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Viewfinder corners -->
+  <g fill="none" stroke="url(#frame)" stroke-width="5" stroke-linecap="round">
+    <path d="M846 92 V70 A16 16 0 0 1 862 54 H884"/>
+    <path d="M1100 54 H1122 A16 16 0 0 1 1138 70 V92"/>
+    <path d="M1138 210 V232 A16 16 0 0 1 1122 248 H1100"/>
+    <path d="M884 248 H862 A16 16 0 0 1 846 232 V210"/>
+  </g>
+</svg>

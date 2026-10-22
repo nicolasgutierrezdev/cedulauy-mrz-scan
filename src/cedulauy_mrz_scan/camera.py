@@ -3,7 +3,9 @@
 
 from __future__ import annotations
 
+import os
 import queue
+import sys
 import threading
 import time
 from pathlib import Path
@@ -122,6 +124,9 @@ def scan_camera(
     cap = _open_camera(camera_index)
     reader = _Reader(debug)
     if show:
+        if sys.platform == "linux":
+            # opencv-python's bundled Qt only ships the X11 plugin; skip its Wayland attempt
+            os.environ.setdefault("QT_QPA_PLATFORM", "xcb")
         cv2.namedWindow(WINDOW, cv2.WINDOW_AUTOSIZE | cv2.WINDOW_GUI_NORMAL)
 
     previous_center = None

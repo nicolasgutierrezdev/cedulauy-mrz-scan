@@ -14,7 +14,6 @@ from pathlib import Path
 import cv2
 import numpy as np
 from mrz.checker.td1 import TD1CodeChecker
-from mrz.checker.td3 import TD3CodeChecker
 
 # OCR-B model from https://github.com/DoubangoTelecom/tesseractMRZ;
 # the default "eng" model keeps reading the "<" filler as "K" or "L".
@@ -22,7 +21,6 @@ TESSDATA_DIR = Path(__file__).parent / "tessdata"
 WINDOWS_TESSERACT = Path(os.environ.get("ProgramFiles", r"C:\Program Files"), "Tesseract-OCR")
 
 TD1_LINE_LENGTH = 30
-TD3_LINE_LENGTH = 44
 MIN_WIDTH = 1600
 
 
@@ -74,27 +72,12 @@ def _fix_filler(line: str) -> str:
     return re.sub(r"(?<=<<)[KLCEX](?=<<)", "<", line)
 
 
-def _pad(line: str, length: int) -> str:
-    return line[:length].ljust(length, "<")
-
-
 def validate(lines: list[str]) -> str | None:
-    """Returns the MRZ if the last rows form a valid TD1 or TD3 code, else None."""
-    if len(lines) >= 3 and all(len(line) <= 34 for line in lines[-3:]):
-        td1 = [_pad(line, TD1_LINE_LENGTH) for line in lines[-3:]]
-        if TD1CodeChecker("\n".join(td1)):
-            return "".join(td1)
-
-    if len(lines) >= 2 and all(len(line) >= 40 for line in lines[-2:]):
-        first, second = lines[-2:]
-        # Drop noise picked up before the document code
-        start = re.search(r"[PIACV][A-Z0-9<]", first)
-        if len(first) > TD3_LINE_LENGTH and start:
-            first = first[start.start() :]
-        td3 = [_pad(line, TD3_LINE_LENGTH) for line in (first, second)]
-        if TD3CodeChecker("\n".join(td3)):
-            return "".join(td3)
-    return None
+    """Returns the MRZ if the last three rows form a valid TD1 code, else None."""
+    if len(lines) < 3 or any(len(line) > 34 for line in lines[-3:]):
+        return None
+    td1 = [line[:TD1_LINE_LENGTH].ljust(TD1_LINE_LENGTH, "<") for line in lines[-3:]]
+    return "".join(td1) if TD1CodeChecker("\n".join(td1)) else None
 
 
 def _variants(image: np.ndarray) -> tuple[np.ndarray, ...]:
@@ -114,8 +97,8 @@ def read_mrz(image: np.ndarray) -> tuple[str | None, list[str]]:
     """
     Reads the MRZ from a BGR image of the code area.
 
-    Returns (mrz, lines): the validated MRZ (90 chars for TD1, 88 for TD3) or
-    None, and the best rows read, for feedback.
+    Returns (mrz, lines): the validated 90-character TD1 MRZ or None, and the
+    best rows read, for feedback.
     """
     best: list[str] = []
     for variant in _variants(image):
