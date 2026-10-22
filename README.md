@@ -39,6 +39,9 @@ Check it with:
 tesseract --version
 ```
 
+On a minimal Linux install (server, container), OpenCV also needs the OpenGL and GLib libraries:
+`libgl1 libglib2.0-0` (Debian/Ubuntu), `mesa-libGL glib2` (Fedora), `mesa glib2` (Arch).
+
 **2. Install the package**
 
 ```bash
