@@ -44,6 +44,18 @@ On a minimal Linux install (server, container), OpenCV also needs the OpenGL and
 
 **2. Install the package**
 
+As a command-line tool, in its own isolated environment:
+
+```bash
+uv tool install cedulauy-mrz-scan
+# or
+pipx install cedulauy-mrz-scan
+```
+
+Or try it without installing: `uvx cedulauy-mrz-scan --camera 0`.
+
+As a library, in your project:
+
 ```bash
 uv add cedulauy-mrz-scan
 # or
