@@ -1,18 +1,23 @@
 [project]
 name = "cedulauy-mrz-scan"
-version = "0.0.1.dev0"
+version = "0.1.0"
 description = "Scan and parse the MRZ (Machine Readable Zone) of Uruguayan identity cards (cédula de identidad)."
 readme = "README.md"
-license = "MIT"
-license-files = ["LICENSE"]
+license = "GPL-3.0-or-later"
+license-files = ["LICENSE", "src/cedulauy_mrz_scan/tessdata/LICENSE"]
 authors = [
     { name = "Nicolás Gutiérrez", email = "ngutierreztassano@gmail.com" }
 ]
 requires-python = ">=3.10"
-dependencies = []
+dependencies = [
+    "mrz>=0.6.2",
+    "numpy>=1.26",
+    "opencv-python>=4.10",
+    "pillow>=11",
+]
 keywords = ["mrz", "uruguay", "cedula", "identity-card", "ocr", "td1"]
 classifiers = [
-    "Development Status :: 1 - Planning",
+    "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
@@ -24,6 +29,9 @@ classifiers = [
     "Programming Language :: Python :: 3.14",
     "Typing :: Typed",
 ]
+
+[project.scripts]
+cedulauy-mrz-scan = "cedulauy_mrz_scan.cli:main"
 
 [project.urls]
 Homepage = "https://github.com/nicolasgutierrezdev/cedulauy-mrz-scan"

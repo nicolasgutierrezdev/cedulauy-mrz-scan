@@ -5,6 +5,7 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
+  workflow_call:
 
 jobs:
   test:
@@ -13,11 +14,44 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
+        lang: [en]
+        include:
+          - python-version: "3.14"
+            lang: es
+    env:
+      EXPECTED_LANG: ${{ matrix.lang }}
     steps:
       - uses: actions/checkout@v5
       - uses: astral-sh/setup-uv@v6
         with:
           python-version: ${{ matrix.python-version }}
+      - run: sudo apt-get update && sudo apt-get install -y tesseract-ocr
+      - if: matrix.lang == 'es'
+        run: |
+          sudo locale-gen es_UY.UTF-8
+          echo "LANG=es_UY.UTF-8" >> "$GITHUB_ENV"
+          echo "LC_ALL=es_UY.UTF-8" >> "$GITHUB_ENV"
       - run: uv sync --locked
       - run: uv run ruff check
+      - run: uv run pytest
+
+  test-windows:
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        lang: [en, es]
+    env:
+      EXPECTED_LANG: ${{ matrix.lang }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.14"
+      # Not added to PATH, so the Program Files lookup is exercised too
+      - run: choco install tesseract --no-progress -y
+      - if: matrix.lang == 'es'
+        run: Set-Culture es-UY
+      - run: uv sync --locked
+      - run: uv run python -c "from cedulauy_mrz_scan import ocr; print(ocr.find_tesseract())"
       - run: uv run pytest
