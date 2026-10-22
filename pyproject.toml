@@ -1,6 +1,6 @@
 [project]
 name = "cedulauy-mrz-scan"
-version = "0.1.0"
+version = "0.1.1"
 description = "Scan and parse the MRZ (Machine Readable Zone) of Uruguayan identity cards (cédula de identidad)."
 readme = "README.md"
 license = "GPL-3.0-or-later"
