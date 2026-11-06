@@ -72,7 +72,7 @@ cedulauy-mrz-scan --camera 0
 ```
 
 A window shows a card-shaped guide and tells you how to hold the card: closer, straighter, still.
-When it is well placed, two pictures are taken and the MRZ is printed. Press `q` or `Esc` to quit.
+When it is well placed, two pictures are taken and the MRZ is printed. Press `q` or `Esc`, or close the window, to quit.
 
 From a photo or scan:
 

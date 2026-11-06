@@ -89,7 +89,16 @@ class _Reader:
 
 
 def _open_camera(index: int) -> cv2.VideoCapture:
-    cap = cv2.VideoCapture(index)
+    cap = None
+    if sys.platform == "win32":
+        # The default Media Foundation backend can take over a minute to open
+        # and returns broken frames once MJPG is selected; DirectShow does neither
+        cap = cv2.VideoCapture(index, cv2.CAP_DSHOW)
+        if not cap.isOpened():
+            cap.release()
+            cap = None
+    if cap is None:
+        cap = cv2.VideoCapture(index)
     if not cap.isOpened():
         raise RuntimeError(f"Could not open camera {index}")
     # MJPG gives 1280x720 at 30 fps on most webcams; YUYV drops to 10 fps
@@ -97,6 +106,15 @@ def _open_camera(index: int) -> cv2.VideoCapture:
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
     return cap
+
+
+def _window_open() -> bool:
+    """False once the user closed the window with its X button."""
+    try:
+        return cv2.getWindowProperty(WINDOW, cv2.WND_PROP_VISIBLE) >= 1
+    except cv2.error:
+        # some backends raise instead of returning -1 for a destroyed window
+        return False
 
 
 def scan_camera(
@@ -113,7 +131,7 @@ def scan_camera(
     Once the card has been well placed for HOLD_TIME, two pictures are taken
     CAPTURE_GAP apart; moving in between restarts the hold. Returns the MRZ
     when both pictures pass the check digits with identical reads, or None if
-    the user quits (q / ESC).
+    the user quits (q / ESC or closing the window).
 
     With debug=True the detector mask is shown, "s" saves the current frame
     and failed pictures are saved to ./debug/. lang is "en" or "es"; by default
@@ -181,7 +199,7 @@ def scan_camera(
             cv2.imshow(WINDOW, frame)
 
             key = cv2.waitKey(1) & 0xFF
-            if key in (ord("q"), 27):
+            if key in (ord("q"), 27) or not _window_open():
                 break
             if debug and key == ord("s"):
                 print(f"Saved {_save_debug('frame', raw_frame)} (instruction: {instruction})")
